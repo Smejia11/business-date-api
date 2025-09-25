@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common';
+import { BadRequestException, ValidationPipe } from '@nestjs/common';
 import pinoHttp from 'pino-http';
 import helmet from 'helmet';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -8,7 +8,21 @@ import type { Request, Response } from 'express';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
-  app.useGlobalPipes(new ValidationPipe({ transform: true }));
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      transform: true,
+      exceptionFactory: (validationErrors = []) => {
+        const details = validationErrors
+          .map((err) => Object.values(err.constraints || {}).join(', '))
+          .join('; ');
+        return new BadRequestException({
+          error: 'InvalidParameters',
+          message: details || 'Invalid input parameters',
+        });
+      },
+    }),
+  );
   app.use(
     helmet({
       contentSecurityPolicy: {

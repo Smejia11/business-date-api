@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { BusinessDateController } from './business-date.controller';
 import { IBusinessDateService } from '../domain/businessDay';
 import { BusinessDateService } from '../application/business-date.service';
+import { BadRequestException } from '@nestjs/common';
 
 describe('BusinessDateController', () => {
   let controller: BusinessDateController;
@@ -31,5 +32,13 @@ describe('BusinessDateController', () => {
       date: '2025-04-10T15:00:00.000Z',
     });
     expect(result).toEqual({ date: '2025-04-21T20:00:00.000Z' });
+  });
+  it('should throw BadRequestException when days and hours are missing', async () => {
+    await expect(controller.getBusinessDate({})).rejects.toThrow(
+      new BadRequestException({
+        error: 'InvalidParameters',
+        message: "You must provide at least 'date' 'days' or 'hours'.",
+      }),
+    );
   });
 });
