@@ -21,7 +21,15 @@ async function bootstrap() {
     .getHttpAdapter()
     .get('/', (_req: Request, res: Response) => res.redirect('/api/docs'));
 
-  SwaggerModule.setup('api/docs', app, document); // URL: /api/docs
+  SwaggerModule.setup('api/docs', app, document, {
+    customCss: `
+      .swagger-ui .topbar { display: none; }
+    `,
+    customJs:
+      'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.js',
+    customCssUrl:
+      'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.css',
+  }); // URL: /api/docs
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();
