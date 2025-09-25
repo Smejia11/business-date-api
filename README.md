@@ -84,13 +84,8 @@ GET /api/v1/business-date
 
 ```json
 {
-  "message": [
-    "days must be a positive number",
-    "hours must be a positive number",
-    "date must be a valid ISO 8601 date string"
-  ],
-  "error": "Bad Request",
-  "statusCode": 400
+  "error": "InvalidParameters",
+  "message": "You must provide at least 'date' 'days' or 'hours'."
 }
 ```
 
