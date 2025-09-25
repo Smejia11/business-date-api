@@ -26,7 +26,10 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.2",
     "date-holidays": "^3.26.1",
+    "helmet": "^8.1.0",
     "luxon": "^3.7.2",
+    "pino": "^9.11.0",
+    "pino-http": "^10.5.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1"
   },

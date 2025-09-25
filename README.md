@@ -55,6 +55,43 @@ $ pnpm run test:e2e
 
 # test coverage
 $ pnpm run test:cov
+
+```
+
+# Use service
+
+```bash
+GET /api/v1/business-date
+```
+
+## Query Parameters
+
+| Parameter | Type                           | Required | Description                               |
+| --------- | ------------------------------ | -------- | ----------------------------------------- |
+| `days`    | number                         | optional | Business days to add (positive integer).  |
+| `hours`   | number                         | optional | Business hours to add (positive integer). |
+| `date`    | string (ISO 8601 UTC with `Z`) | optional | Starting date/time in UTC.                |
+
+## Example response 200
+
+```json
+{
+  "date": "2025-04-21T20:00:00.000Z"
+}
+```
+
+## Example response 400
+
+```json
+{
+  "message": [
+    "days must be a positive number",
+    "hours must be a positive number",
+    "date must be a valid ISO 8601 date string"
+  ],
+  "error": "Bad Request",
+  "statusCode": 400
+}
 ```
 
 ## Deployment

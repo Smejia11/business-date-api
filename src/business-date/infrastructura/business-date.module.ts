@@ -6,7 +6,7 @@ import { IBusinessDateService } from '../domain/businessDay';
 @Module({
   providers: [
     {
-      provide: IBusinessDateService, // 👈 token = clase abstracta
+      provide: IBusinessDateService, // clase abstracta
       useClass: BusinessDateService, // implementación
     },
   ],
