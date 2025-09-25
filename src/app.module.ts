@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { BusinessDateModule } from './business-date/infrastructura/business-date.module';
+import { BusinessDateModule } from './business-date/infrastructure/business-date.module';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 
