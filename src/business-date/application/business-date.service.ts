@@ -1,4 +1,8 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { DateTime } from 'luxon';
 import Holidays from 'date-holidays';
 import { IBusinessDateService } from '../domain/businessDay';
@@ -53,6 +57,12 @@ export class BusinessDateService extends IBusinessDateService {
   }
 
   calculate(days?: number, hours?: number, date?: string): Promise<string> {
+    if (!date && !hours && !days) {
+      throw new BadRequestException({
+        error: 'InvalidParameters',
+        message: "You must provide at least 'date' 'days' or 'hours'.",
+      });
+    }
     let current = date
       ? DateTime.fromISO(date, { zone: 'utc' }).setZone('America/Bogota')
       : DateTime.now().setZone('America/Bogota');
