@@ -63,6 +63,14 @@ $ pnpm run test:cov
 ```bash
 GET /api/v1/business-date
 ```
+## Example use local 
+
+```bash
+curl --location 'localhost:3000/api/v1/business-date?date=2025-09-28T23%3A00%3A00Z&days=1' \
+```
+
+<img width="811" height="620" alt="image" src="https://github.com/user-attachments/assets/ddf5f08a-4d2f-4ca2-b135-dbfceecbfef1" />
+
 
 ## Query Parameters
 
