@@ -21,9 +21,10 @@ export class BusinessDateService extends IBusinessDateService {
     let d = start;
     console.log({ date: d.toISO() }, 'start date');
     while (days > 0) {
-      d = d
-        .plus({ days: 1 })
-        .set({ hour: d.hour ? d.hour : 8, minute: 0, second: 0 });
+      let hour: number = d.hour ?? 8;
+      if (hour > 17) hour = 17;
+
+      d = d.plus({ days: 1 }).set({ hour, minute: 0, second: 0 });
       const isBusinessDay = this.isBusinessDay(d);
       console.log(
         { businessDay: isBusinessDay, date: d.toISODate() },
@@ -38,8 +39,8 @@ export class BusinessDateService extends IBusinessDateService {
   private addBusinessHours(start: DateTime, hours: number): DateTime {
     let d: DateTime = start;
     while (hours > 0) {
-      d = d.plus({ hours: 1 });
       const hour = d.hour;
+      d = d.plus({ hours: 1 });
       const inMorning = hour >= 8 && hour < 12;
       const inAfternoon = hour >= 13 && hour < 17;
       console.log(
