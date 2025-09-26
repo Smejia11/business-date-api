@@ -71,7 +71,7 @@ export class BusinessDateService extends IBusinessDateService {
     if (days) current = this.addBusinessDays(current, days);
     if (hours) current = this.addBusinessHours(current, hours);
 
-    const res = current.setZone('UTC').toISO();
+    const res = current.setZone('UTC').toISO({ suppressMilliseconds: true });
 
     if (!res)
       throw new InternalServerErrorException({
